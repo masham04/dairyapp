@@ -10,7 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import bg from "./images/login.jpg";
-import logo from './images/notebook.png';
+import logo from "./images/notebook.png";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -71,8 +71,10 @@ const Login = () => {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <img src={logo} alt='logo' width='50px' height='50px' />
-          <span><h1>Diary App</h1></span>
+          <img src={logo} alt="logo" width="50px" height="50px" />
+          <span>
+            <h1>Diary App</h1>
+          </span>
           <Typography component="h3" variant="h6">
             Sign in to your account
           </Typography>
@@ -103,15 +105,12 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              style={{backgroundColor: 'black',color: 'white'}}
+              style={{ backgroundColor: "black", color: "white" }}
               className={classes.submit}
               onClick={submitHandler}
             >

@@ -74,7 +74,7 @@ const Signup = () => {
         <img src={logo} alt='logo' width='50px' height='50px' />
           <span><h1>Diary App</h1></span>
           <Typography component="h1" variant="h5">
-            Sign Up
+            Sign Up to create account
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -114,10 +114,7 @@ const Signup = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            
             <Button
               type="submit"
               fullWidth
