@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Signup = () => {
   const classes = useStyles();
   const [username, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -68,13 +68,13 @@ const Login = () => {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <img src={logo} alt='logo' width='50px' height='50px' />
+        <img src={logo} alt='logo' width='50px' height='50px' />
           <span><h1>Diary App</h1></span>
-          <Typography component="h3" variant="h6">
-            Sign in to your account
+          <Typography component="h1" variant="h5">
+            Sign Up
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -89,6 +89,17 @@ const Login = () => {
               autoFocus
               value={username}
               onChange={(e) => setName(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
             />
             <TextField
               variant="outlined"
@@ -115,17 +126,12 @@ const Login = () => {
               className={classes.submit}
               onClick={submitHandler}
             >
-              Log In
+              Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link to="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link to="/" variant="body2">
+                  {"Already have an account? Login"}
                 </Link>
               </Grid>
             </Grid>
@@ -135,8 +141,9 @@ const Login = () => {
           </form>
         </div>
       </Grid>
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
     </Grid>
   );
 };
 
-export default Login;
+export default Signup;
