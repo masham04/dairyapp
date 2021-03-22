@@ -16,7 +16,7 @@ export const getNotes = () => async (dispatch, getstate) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `x-access-token ${userInfo.accessToken}`,
+        "x-access-token": `${userInfo.accessToken}`,
       },
     };
     const { data } = await axios.get(`/${userInfo.username}/notes`, config);

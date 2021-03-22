@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Header } from "../components/Header";
-import {getNotes} from '../actions/notesActions'
+import { getNotes } from "../actions/notesActions";
 
 const Notes = ({ history }) => {
   const dispatch = useDispatch();
@@ -10,10 +10,10 @@ const Notes = ({ history }) => {
   const { userInfo } = userLogin;
   const noteslist = useSelector((state) => state.noteslist);
   const { loading, error, notes } = noteslist;
-  console.log(notes)
+  console.log(notes);
+
   useEffect(() => {
-   dispatch(getNotes());
-    
+    dispatch(getNotes());
   }, []);
 
   return (
@@ -32,6 +32,19 @@ const Notes = ({ history }) => {
         <div>
           <Header />
           <h2> Welcome to Dairy App,{userInfo.username}</h2>
+          {!notes ? (
+            <div>
+              <h3>No Notes</h3>
+            </div>
+          ) : (
+            notes.map((el) => (
+              <div>
+                <h2>{el.title}</h2>
+                <h4>{el.content}</h4>
+                <h4>{el.date}</h4>
+              </div>
+            ))
+          )}
         </div>
       )}
     </div>

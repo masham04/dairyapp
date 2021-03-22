@@ -37,23 +37,20 @@ h1 {
 p {
 	text-align: center;
 }
-a{
-	color: #FFF;
-}
+
 
 .toggle,
 [id^=drop] {
 	display: none;
 }
-.header{
-	color: #FFF;
-}
+
 /* Giving a background-color to the nav container. */
 nav { 
 	margin:0;
 	padding: 0;
-	background-color: #254441;
-	color: #FFF;
+	background-color: #FFF;
+	color: black;
+	
 }
 
 #logo {
@@ -87,14 +84,14 @@ nav ul {
 nav ul li {
 	margin: 0px;
 	float: left;
-	background-color: #254441;
+	background-color: #FFF;
+	
 	}
 
 /* Styling the links */
 nav a {
 	display:block;
 	padding:14px 20px;	
-	
 	font-size:17px;
 	text-decoration:none;
 	transition: all ease .2s;
@@ -105,7 +102,7 @@ nav ul li ul li:hover { background: #000000; }
 
 /* Background color change on Hover */
 nav a:hover { 
-	background-color: #000000; 
+	background-color: #dac6c6; 
 }
 
 /* Hide Dropdowns by Default

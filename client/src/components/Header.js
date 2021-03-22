@@ -18,19 +18,19 @@ export const Header = () => {
       <nav>
         <div id="logo">DiaryApp</div>
 
-        <label for="drop" class="toggle">
+        <label for="drop" className="toggle">
           <img src={bar} alt="bar" width="30px" />
         </label>
         <input type="checkbox" id="drop" />
-        <ul class="menu">
+        <ul className="menu">
           <li>
             <a href="#">
-              <i class="fa fa-user"></i> {userInfo ? userInfo.username : "Signin"}
+              <i className="fa fa-user"></i> {userInfo ? userInfo.username : "Signin"}
             </a>
           </li>
 
           <li>
-            <a href="/login" onClick={logoutHandler}><i class="fa fa-sign-out"></i> Logout</a>
+            <a href="/login" onClick={logoutHandler}><i className="fa fa-sign-out"></i> Logout</a>
           </li>
         </ul>
       </nav>
