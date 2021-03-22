@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect("mongodb://localhost:personaldiary_db",{
+        const conn = await mongoose.connect("mongodb+srv://masham1234:masham1234@cluster1.jvnso.mongodb.net/DiaryApp?retryWrites=true&w=majority"
+        ,{
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true

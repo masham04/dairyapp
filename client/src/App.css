@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap');
 body {
   font-family: "Raleway";
   background-color: #d0d0ce;
   min-height: 100vh;
+  
 }
 
 /* .login-card {

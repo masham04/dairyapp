@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import bg from "./images/login.jpg";
-import logo from './images/notebook.png';
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import bg from "./images/login.jpg";
+import logo from "./images/notebook.png";
+import { register } from "../actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 function Copyright() {
   return (
@@ -56,14 +55,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Signup = () => {
+const Signup = ({ history }) => {
   const classes = useStyles();
   const [username, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  
 
-  const submitHandler = (e) => {
+  const dispatch = useDispatch();
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, userInfo } = userRegister;
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/all-notes");
+    }
+  }, [userInfo, history]);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(username, password);
+    if (password !== confirmPassword) {
+      console.log("Passwords do not match!");
+    } else {
+      console.log(username,email.password)
+      dispatch(register(username,email,password));
+    }
   };
   return (
     <Grid container component="main" className={classes.root}>
@@ -71,8 +88,11 @@ const Signup = () => {
 
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-        <img src={logo} alt='logo' width='50px' height='50px' />
-          <span><h1>Diary App</h1></span>
+          <img src={logo} alt="logo" width="50px" height="50px" />
+          <span>
+            <h1>Diary App</h1>
+          </span>
+          <span>{error && <h2>{error}</h2>}</span>
           <Typography component="h1" variant="h5">
             Sign Up to create account
           </Typography>
@@ -99,7 +119,8 @@ const Signup = () => {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -114,16 +135,29 @@ const Signup = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Confirm Password"
+              type="password"
+              id="confpassword"
+              autoComplete="current-password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              style={{backgroundColor: 'black',color: 'white'}}
+              style={{ backgroundColor: "black", color: "white" }}
               className={classes.submit}
               onClick={submitHandler}
             >
-              Sign In
+              Sign Up
             </Button>
             <Grid container>
               <Grid item>

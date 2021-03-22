@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../actions/userActions";
+import { Link, Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
@@ -56,14 +55,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Login = ({ history, location }) => {
   const classes = useStyles();
   const [username, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitHandler = (e) => {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+
+  const { loading, error, userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/all-notes");
+    }
+  }, [userInfo, history]);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(username, password);
+    dispatch(login(username, password));
+
+    // Loginapi(username,password);
   };
   return (
     <Grid container component="main" className={classes.root}>
@@ -73,8 +85,9 @@ const Login = () => {
         <div className={classes.paper}>
           <img src={logo} alt="logo" width="50px" height="50px" />
           <span>
-            <h1>Diary App</h1>
+            <h2>Diary App</h2>
           </span>
+          <span>{error && <h2>{error}</h2>}</span>
           <Typography component="h3" variant="h6">
             Sign in to your account
           </Typography>
@@ -105,17 +118,18 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              style={{ backgroundColor: "black", color: "white" }}
-              className={classes.submit}
-              onClick={submitHandler}
-            >
-              Log In
-            </Button>
+            <Link to="/all-notes">
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                style={{ backgroundColor: "black", color: "white" }}
+                className={classes.submit}
+                onClick={submitHandler}
+              >
+                Log In
+              </Button>
+            </Link>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
