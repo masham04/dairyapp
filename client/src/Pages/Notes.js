@@ -35,14 +35,11 @@ const Notes = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const noteslist = useSelector((state) => state.noteslist);
-  const { loading, error, notes } = noteslist;
-  console.log(notes);
+  const { error, notes } = noteslist;
 
   useEffect(() => {
     dispatch(getNotes());
   }, [dispatch]);
-
-  
 
   return (
     <div>
@@ -66,21 +63,22 @@ const Notes = () => {
           ) : (
             <div>
               {notes.map((el, key) => {
-                
                 return (
                   <div className="container">
-                   
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6} md={6} lg={3}>
                         <Card className="card">
-                          <Link to={`/note/${el._id}`} style={{ textDecoration: 'none',color: "black" }}>
-                          <CardActionArea>
-                            <CardContent>
-                              <h2>{el.title}</h2>
-                              <br />
-                              <p>{el.content}</p>
-                            </CardContent>
-                          </CardActionArea>
+                          <Link
+                            to={`/note/${el._id}`}
+                            style={{ textDecoration: "none", color: "black" }}
+                          >
+                            <CardActionArea>
+                              <CardContent>
+                                <h2>{el.title}</h2>
+                                <br />
+                                <p>{el.content}</p>
+                              </CardContent>
+                            </CardActionArea>
                           </Link>
                           {/* <CardActions>
                             <Button size="medium" style={{ width: "50%" }}>
