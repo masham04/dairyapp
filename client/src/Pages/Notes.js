@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getNotes } from "../actions/notesActions";
 import { Header } from "../components/Header";
+import { ViewNote } from "../components/ViewNote";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -42,9 +43,12 @@ const Notes = () => {
     dispatch(getNotes());
   }, [dispatch]);
 
+  
+
   return (
     <div>
       <Header />
+      <viewNote />
       {!userInfo ? (
         <div>
           <div style={{ textAlign: "center" }}>
@@ -63,12 +67,14 @@ const Notes = () => {
           ) : (
             <div>
               {notes.map((el, key) => {
+                
                 return (
                   <div className="container">
+                    {/* <ViewNote/> */}
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6} md={6} lg={3}>
                         <Card className="card">
-                          <CardActionArea>
+                          <CardActionArea onClick={() => {return(<ViewNote/>)}}>
                             <CardContent>
                               <h2>{el.title}</h2>
                               <br />
