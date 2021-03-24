@@ -1,39 +1,77 @@
 import React from "react";
-import "./Header.css";
-import bar from "../Pages/images/menu.png";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../actions/userActions";
+import { Link } from "react-router-dom";
+import logo from '../Pages/images/notebook.png'
 
-export const Header = () => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
+export const Header = ({ history }) => {
+
+  const classes = useStyles();
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
-  
-  const logoutHandler = () => {
-    dispatch(logout());
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
   };
+
+  const handleClose = () => {
+    dispatch(logout());
+    setAnchorEl(null);
+  };
+
   return (
-    <div className='header'>
-      <nav>
-        <div id="logo">DiaryApp</div>
+    <div className={classes.root}>
+      <AppBar position="static" style={{ backgroundColor: "#2e2e2f" }}>
+        <Toolbar>
 
-        <label for="drop" className="toggle">
-          <img src={bar} alt="bar" width="30px" />
-        </label>
-        <input type="checkbox" id="drop" />
-        <ul className="menu">
-          <li>
-            <a href="#">
-              <i className="fa fa-user"></i> {userInfo ? userInfo.username : "Signin"}
-            </a>
-          </li>
-
-          <li>
-            <a href="/login" onClick={logoutHandler}><i className="fa fa-sign-out"></i> Logout</a>
-          </li>
-        </ul>
-      </nav>
+          <h2 className={classes.title}>Diary App</h2>
+          <div>
+            <IconButton onClick={handleMenu} color="inherit">
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={open}
+              
+            >
+              <MenuItem>{userInfo ? userInfo.username : "Signin"}</MenuItem>
+              <Link to="/login">
+                <MenuItem style={{color: 'black',textDecoration:'none'}} onClick={handleClose}>Logout</MenuItem>
+              </Link>
+            </Menu>
+          </div>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import Notes from "./Pages/Notes";
 function App() {
   
   return (
-    <Router className="App">
+    <Router>
       <Route  path="/" exact>
            <Redirect to='/login' />
       </Route>
