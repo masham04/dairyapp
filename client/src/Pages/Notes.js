@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getNotes } from "../actions/notesActions";
 import { Header } from "../components/Header";
-import { ViewNote } from "../components/ViewNote";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -70,25 +69,27 @@ const Notes = () => {
                 
                 return (
                   <div className="container">
-                    {/* <ViewNote/> */}
+                   
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={6} md={6} lg={3}>
                         <Card className="card">
-                          <CardActionArea onClick={() => {return(<ViewNote/>)}}>
+                          <Link to={`/note/${el._id}`} style={{ textDecoration: 'none',color: "black" }}>
+                          <CardActionArea>
                             <CardContent>
                               <h2>{el.title}</h2>
                               <br />
                               <p>{el.content}</p>
                             </CardContent>
                           </CardActionArea>
-                          <CardActions>
+                          </Link>
+                          {/* <CardActions>
                             <Button size="medium" style={{ width: "50%" }}>
                               <DeleteIcon /> Delete
                             </Button>
                             <Button size="medium" style={{ width: "50%" }}>
                               <EditIcon /> Edit
                             </Button>
-                          </CardActions>
+                          </CardActions> */}
                         </Card>
                       </Grid>
                     </Grid>

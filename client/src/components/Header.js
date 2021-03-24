@@ -65,8 +65,8 @@ export const Header = ({ history }) => {
               
             >
               <MenuItem>{userInfo ? userInfo.username : "Signin"}</MenuItem>
-              <Link to="/login">
-                <MenuItem style={{color: 'black',textDecoration:'none'}} onClick={handleClose}>Logout</MenuItem>
+              <Link to="/login" style={{ textDecoration: 'none',color: "black" }}>
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
               </Link>
             </Menu>
           </div>

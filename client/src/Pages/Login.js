@@ -118,7 +118,7 @@ const Login = ({ history, location }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Link to="/all-notes">
+            <Link to="/all-notes" style={{ textDecoration: 'none'}}>
               <Button
                 type="submit"
                 fullWidth
