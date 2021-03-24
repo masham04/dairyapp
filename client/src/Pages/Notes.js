@@ -10,8 +10,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 
@@ -80,14 +78,6 @@ const Notes = () => {
                               </CardContent>
                             </CardActionArea>
                           </Link>
-                          {/* <CardActions>
-                            <Button size="medium" style={{ width: "50%" }}>
-                              <DeleteIcon /> Delete
-                            </Button>
-                            <Button size="medium" style={{ width: "50%" }}>
-                              <EditIcon /> Edit
-                            </Button>
-                          </CardActions> */}
                         </Card>
                       </Grid>
                     </Grid>

@@ -9,7 +9,6 @@ import Menu from "@material-ui/core/Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../actions/userActions";
 import { Link } from "react-router-dom";
-import logo from '../Pages/images/notebook.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Header = ({ history }) => {
-
   const classes = useStyles();
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
@@ -43,8 +41,14 @@ export const Header = ({ history }) => {
     <div className={classes.root}>
       <AppBar position="static" style={{ backgroundColor: "#2e2e2f" }}>
         <Toolbar>
-
-          <h2 className={classes.title}>Diary App</h2>
+          <h2 className={classes.title}>
+            <Link
+              to="/all-notes"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Diary App
+            </Link>
+          </h2>
           <div>
             <IconButton onClick={handleMenu} color="inherit">
               <AccountCircle />
@@ -62,10 +66,12 @@ export const Header = ({ history }) => {
                 horizontal: "right",
               }}
               open={open}
-              
             >
               <MenuItem>{userInfo ? userInfo.username : "Signin"}</MenuItem>
-              <Link to="/login" style={{ textDecoration: 'none',color: "black" }}>
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "black" }}
+              >
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
               </Link>
             </Menu>
