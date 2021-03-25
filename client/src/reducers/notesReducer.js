@@ -5,6 +5,9 @@ import {
   NOTE_GET_REQUEST,
   NOTE_GET_SUCCESS,
   NOTE_GET_FAIL,
+  NOTE_ADD_REQUEST,
+  NOTE_ADD_SUCCESS,
+  NOTE_ADD_FAIL,
 } from "../constants/noteConstants";
 
 export const getAllReducer = (state = {notes : []}, action) => {
@@ -34,3 +37,17 @@ export const getAllReducer = (state = {notes : []}, action) => {
     }
   };
 
+/////////////////////////////////////////////////////////////////////
+
+export const addNoteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case NOTE_ADD_REQUEST:
+      return { loading: true, };
+    case NOTE_ADD_SUCCESS:
+      return { loading: false, state: action.payload };
+    case NOTE_ADD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state
+  }
+};
