@@ -3,7 +3,7 @@ import User from "../model/user.js";
 
 const createNote = (req, res) => {
   if (!req.body.title || !req.body.content) {
-    res.status(400).send({ message: "Title and content cannot be empty!" });
+    res.status(400).json({ message: "Title and content cannot be empty!" });
     return;
   }
   const username = req.params.username;
@@ -19,10 +19,10 @@ const createNote = (req, res) => {
       note
       .save(note)
       .then(data => {
-        res.send(data);
+        res.json(data);
       })
       .catch(err => {
-        res.status(500).send({
+        res.status(500).json({
           message:
             err.message || "Some error occurred while creating the note."
         });
@@ -87,7 +87,7 @@ const getNote = (req, res) => {
       .catch(err => {
         res
           .status(500)
-          .send({ message: `Error fetching note with id=${id}` });
+          .json({ message: `Error fetching note with id=${id}` });
       });
   };
   ///////////////////Get_All/////////////////////
@@ -103,7 +103,7 @@ const getNote = (req, res) => {
           res.send(data);
         })
         .catch(err => {
-          res.status(500).send({
+          res.status(500).json({
             message:
               err.message || "Some error occurred while fetching notes."
           });

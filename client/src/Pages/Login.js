@@ -63,7 +63,7 @@ const Login = ({ history, location }) => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
 
-  const { loading, error, userInfo } = userLogin;
+  const { error, userInfo } = userLogin;
 
   useEffect(() => {
     if (userInfo) {
@@ -75,7 +75,7 @@ const Login = ({ history, location }) => {
     e.preventDefault();
     dispatch(login(username, password));
 
-    // Loginapi(username,password);
+
   };
   return (
     <Grid container component="main" className={classes.root}>

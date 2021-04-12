@@ -7,7 +7,7 @@ import {
   NOTE_GET_FAIL,
   NOTE_ADD_REQUEST,
   NOTE_ADD_FAIL,
-  NOTE_ADD_SUCCESS
+  NOTE_ADD_SUCCESS,
 } from "../constants/noteConstants";
 import axios from "axios";
 
@@ -30,7 +30,6 @@ export const getNotes = () => async (dispatch, getstate) => {
       type: NOTE_GETALL_SUCCESS,
       payload: data,
     });
-    
   } catch (error) {
     dispatch({
       type: NOTE_GETALL_FAIL,
@@ -57,12 +56,14 @@ export const getNote = (id) => async (dispatch, getstate) => {
         "x-access-token": `${userInfo.accessToken}`,
       },
     };
-    const { data } = await axios.get(`/${userInfo.username}/note/${id}`, config);
+    const { data } = await axios.get(
+      `/${userInfo.username}/note/${id}`,
+      config
+    );
     dispatch({
       type: NOTE_GET_SUCCESS,
       payload: data,
     });
-    
   } catch (error) {
     dispatch({
       type: NOTE_GET_FAIL,
@@ -75,7 +76,7 @@ export const getNote = (id) => async (dispatch, getstate) => {
 };
 //////////////////////////////////////////////////////////////////////////
 
-export const addNote = () => async (dispatch, getstate) => {
+export const addNote = (title, content) => async (dispatch, getstate) => {
   try {
     dispatch({
       type: NOTE_ADD_REQUEST,
@@ -89,12 +90,15 @@ export const addNote = () => async (dispatch, getstate) => {
         "x-access-token": `${userInfo.accessToken}`,
       },
     };
-    const { data } = await axios.post(`/${userInfo.username}/note/add`, config);
+    const { data } = await axios.post(
+      `/${userInfo.username}/add`,
+      { title, content },
+      config
+    );
     dispatch({
       type: NOTE_ADD_SUCCESS,
       payload: data,
     });
-    
   } catch (error) {
     dispatch({
       type: NOTE_ADD_FAIL,

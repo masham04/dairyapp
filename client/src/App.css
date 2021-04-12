@@ -6,10 +6,10 @@
 body {
   font-family: "Raleway";
   background-color: #d0d0ce;
-  text-decoration: none;
+  
 }
 
-.container {
+/* .container {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -26,4 +26,4 @@ body {
 }
 Link{
   text-decoration: none;
-}
+} */

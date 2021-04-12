@@ -3,28 +3,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getNotes } from "../actions/notesActions";
 import { Header } from "../components/Header";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
+import { addNote } from "../actions/notesActions";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Loader from "react-loader-spinner";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: 100,
-    position: "relative",
-    minHeight: 200,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
   },
   fab: {
     position: "absolute",
@@ -35,11 +35,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Notes = () => {
   const classes = useStyles();
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const noteslist = useSelector((state) => state.noteslist);
   const { error, notes } = noteslist;
+
+  const added = useSelector((state) => state.addNote);
+  console.log(added);
 
   const [open, setOpen] = useState(false);
 
@@ -50,15 +56,31 @@ const Notes = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleSubmit = () => {
+    dispatch(addNote(title, content));
+    setOpen(false);
+  };
 
   useEffect(() => {
     dispatch(getNotes());
-  }, [dispatch]);
+  }, [dispatch, added]);
 
+  if (!notes.length)
+    return (
+      <center>
+        <Loader
+          style={{ marginTop: "40vh" }}
+          type="Bars"
+          color="#3d3a3ade"
+          height={100}
+          width={100}
+          timeout={3000} //3 secs
+        />
+      </center>
+    );
   return (
     <div>
       <Header />
-      <viewNote />
       {!userInfo ? (
         <div>
           <div style={{ textAlign: "center" }}>
@@ -70,35 +92,19 @@ const Notes = () => {
         </div>
       ) : (
         <div>
-          {!notes ? (
+          {!notes === 0 ? (
             <div>
-              <h2>{error}</h2>
+              <h2>{error && <h2>{error}</h2>}</h2>
             </div>
           ) : (
             <div>
-              {notes.map((el, key) => {
+              {notes.map((el, ind) => {
                 return (
-                  <div className="container">
-                    <Grid container spacing={4}>
-                      <Grid item xs={12} sm={6} md={6} lg={3}>
-                        <Card className="card" key={key}>
-                          <Link
-                            to={`/note/${el._id}`}
-                            style={{ textDecoration: "none", color: "black" }}
-                          >
-                            <CardActionArea>
-                              <CardContent>
-                                <h2>{el.title}</h2>
-                                <br />
-                                <p>{el.content}</p>
-                              </CardContent>
-                            </CardActionArea>
-                          </Link>
-                        </Card>
-                      </Grid>
-                    </Grid>
+                  <div>
+                    <div style={{ float: "right" }}>{el.title}</div>
+
                     <Fab
-                      style={{ backgroundColor: "black", color: "white" }}
+                      // style={{ backgroundColor: "black", color: "white" }}
                       className={classes.fab}
                       aria-label="add"
                       onClick={handleClickOpen}
@@ -118,22 +124,25 @@ const Notes = () => {
                           id="name"
                           label="Title"
                           type="text"
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
                         />
                         <TextField
                           margin="dense"
                           id="content"
-                          label="Detail"
+                          label="Description"
                           type="text"
-                          multiline
                           fullWidth
+                          value={content}
+                          onChange={(e) => setContent(e.target.value)}
                         />
                       </DialogContent>
                       <DialogActions>
                         <Button onClick={handleClose} color="primary">
                           Cancel
                         </Button>
-                        <Button onClick={handleClose} color="primary">
-                          Subscribe
+                        <Button onClick={handleSubmit} color="primary">
+                          Submit
                         </Button>
                       </DialogActions>
                     </Dialog>
