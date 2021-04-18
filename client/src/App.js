@@ -4,18 +4,18 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Notes from "./Pages/Notes";
 import Note from "./Pages/Note";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  
   return (
     <Router>
-      <Route  path="/" exact>
-           <Redirect to='/login' />
+      <Route path="/" exact>
+        <Redirect to="/login" />
       </Route>
       <Route path="/login" component={Login} />
       <Route path="/register" component={Signup} exact />
-      <Route path='/all-notes' component={Notes} />
-      <Route path='/note/:id' component={Note} />
+      <Route path="/all-notes" component={Notes} />
+      <Route path="/note/:id" component={Note} />
     </Router>
   );
 }
