@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/userActions";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -74,8 +74,6 @@ const Login = ({ history, location }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(login(username, password));
-
-
   };
   return (
     <Grid container component="main" className={classes.root}>
@@ -118,7 +116,7 @@ const Login = ({ history, location }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Link to="/all-notes" style={{ textDecoration: 'none'}}>
+            <Link to="/all-notes" style={{ textDecoration: "none" }}>
               <Button
                 type="submit"
                 fullWidth
@@ -131,11 +129,6 @@ const Login = ({ history, location }) => {
               </Button>
             </Link>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
                 <Link to="/register" variant="body2">
                   {"Don't have an account? Sign Up"}

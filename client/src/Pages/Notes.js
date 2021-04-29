@@ -29,16 +29,15 @@ const Notes = () => {
     <div>
       <Header />
       {error && <h2>{error}</h2>}
-      {userInfo ? (
-        <All />
-      ) : (
-        <div style={{ textAlign: "center" }}>
-          <h3>please login!</h3>
-          <span>
-            <Link to="/login">Login</Link>
-          </span>
+      {userInfo && <All />}
+      {!userInfo && (
+        <div style={{ textAlign: "center", marginTop: "20%" }}>
+          <h2>
+            please <Link to="/login">Login!</Link>
+          </h2>
         </div>
       )}
+      
     </div>
   );
 };

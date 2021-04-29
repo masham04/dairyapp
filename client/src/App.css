@@ -1,29 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap");
-*{
+* {
   margin: 0px;
   padding: 0px;
 }
 body {
   font-family: "Raleway";
   background-color: #d0d0ce;
-  
 }
-
-/* .container {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-.card {
-  box-shadow: 0 4px 8px 0 rgba(53, 80, 168, 0.2);
-  background-color: #ffff;
-  transition: 0.3s;
-  margin-top: 50px;
-}
-
-.card:hover {
-  box-shadow: 0 16px 32px 0 rgba(108, 112, 177, 0.2);
-}
-Link{
-  text-decoration: none;
-} */

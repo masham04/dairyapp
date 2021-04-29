@@ -4,7 +4,6 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Notes from "./Pages/Notes";
 import Note from "./Pages/Note";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
