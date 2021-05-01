@@ -49,33 +49,32 @@ export const Header = ({ history }) => {
               Diary App
             </Link>
           </h2>
-          <div>
-            <IconButton onClick={handleMenu} color="inherit">
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={open}
+
+          <IconButton onClick={handleMenu} color="inherit">
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={open}
+          >
+            <MenuItem>{userInfo ? userInfo.username : "Signin"}</MenuItem>
+            <Link
+              to="/login"
+              style={{ textDecoration: "none", color: "black" }}
             >
-              <MenuItem>{userInfo ? userInfo.username : "Signin"}</MenuItem>
-              <Link
-                to="/login"
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-              </Link>
-            </Menu>
-          </div>
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
+            </Link>
+          </Menu>
         </Toolbar>
       </AppBar>
     </div>

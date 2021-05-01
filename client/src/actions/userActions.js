@@ -19,12 +19,16 @@ export const login = (username, password) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.post("/signin", { username, password }, config);
+    const { data } = await axios.post(
+      "/signin",
+      { username, password },
+      config
+    );
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
-    console.log(JSON.stringify(data));
+
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
@@ -66,7 +70,7 @@ export const register = (username, email, password) => async (dispatch) => {
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
-    
+
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({

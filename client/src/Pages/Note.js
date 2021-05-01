@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getNote } from "../actions/notesActions";
 import { Header } from "../components/Header";
@@ -10,14 +11,15 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-// import Loader from "react-loader-spinner";
+import Loader from "react-loader-spinner";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 1000,
+    textAlign: "center",
   },
   media: {
-    height: 140,
+    height: "a",
   },
 });
 
@@ -25,33 +27,57 @@ const Note = ({ match }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const noteDetail = useSelector((state) => state.noteDetail);
-  const { error, note } = noteDetail;
-  
+  const { error, loading, note } = noteDetail;
 
   useEffect(() => {
     dispatch(getNote(match.params.id));
-  }, [dispatch]);
+  }, [dispatch, match]);
+  if (loading)
+    return (
+      <center>
+        <Loader
+          style={{ marginTop: "40vh" }}
+          type="Circles"
+          color="#3d3a3ade"
+          height={100}
+          width={100}
+          timeout={3000} //3 secs
+        />
+      </center>
+    );
   return (
     <div>
       <Header />
+      <Link
+        to="/all-notes"
+        style={{
+          textDecoration: "none",
+          position: "absolute",
+          left: "5%",
+          top: "12%",
+        }}
+      >
+        <Button variant="outlined">Back</Button>
+      </Link>
+
       <Card
         className={classes.root}
         style={{
           marginLeft: "auto",
           marginRight: "auto",
-          marginTop: "50px",
+          marginTop: "12vh",
         }}
       >
         <CardActionArea>
           <CardContent style={{ height: "50vh" }}>
-          <h2>{error && <h2>{error}</h2>}</h2>
-            <h2>{note.title}</h2>
+            <h2>{error && <h2>{error}</h2>}</h2>
+            <h1>{note.title}</h1>
             <br />
             <br />
-            <p>{note.content}</p>
+            <h3>{note.content}</h3>
           </CardContent>
         </CardActionArea>
-        <CardActions style={{ marginTop: "auto" }}>
+        <CardActions>
           <Button size="medium" style={{ width: "50%" }}>
             <DeleteIcon /> Delete
           </Button>

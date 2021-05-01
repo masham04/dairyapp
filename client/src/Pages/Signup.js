@@ -1,5 +1,6 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Snack from "../components/Snack";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -61,7 +62,6 @@ const Signup = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
 
   const dispatch = useDispatch();
   const userRegister = useSelector((state) => state.userRegister);
@@ -78,8 +78,8 @@ const Signup = ({ history }) => {
     if (password !== confirmPassword) {
       console.log("Passwords do not match!");
     } else {
-      console.log(username,email.password)
-      dispatch(register(username,email,password));
+      console.log(username, email.password);
+      dispatch(register(username, email, password));
     }
   };
   return (
@@ -92,7 +92,7 @@ const Signup = ({ history }) => {
           <span>
             <h1>Diary App</h1>
           </span>
-          <span>{error && <h2>{error}</h2>}</span>
+          {error && <Snack msg={error} />}
           <Typography component="h1" variant="h5">
             Sign Up to create account
           </Typography>

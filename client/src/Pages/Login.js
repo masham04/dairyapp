@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/userActions";
+import Snack from "../components/Snack";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -85,7 +86,7 @@ const Login = ({ history, location }) => {
           <span>
             <h2>Diary App</h2>
           </span>
-          <span>{error && <h2>{error}</h2>}</span>
+          {error && <Snack msg={error} />}
           <Typography component="h3" variant="h6">
             Sign in to your account
           </Typography>
@@ -96,7 +97,7 @@ const Login = ({ history, location }) => {
               required
               fullWidth
               id="name"
-              label="UserName"
+              label="username"
               name="name"
               autoComplete="name"
               autoFocus
@@ -109,7 +110,7 @@ const Login = ({ history, location }) => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="password"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -125,7 +126,7 @@ const Login = ({ history, location }) => {
                 className={classes.submit}
                 onClick={submitHandler}
               >
-                Log In
+                LogIn
               </Button>
             </Link>
             <Grid container>

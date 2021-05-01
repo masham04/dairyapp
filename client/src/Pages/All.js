@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getNotes } from "../actions/notesActions";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,8 +22,8 @@ const All = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const noteslist = useSelector((state) => state.noteslist);
-  const { loading, error, notes } = noteslist;
-
+  const { loading, notes } = noteslist;
+  console.log(notes);
   const added = useSelector((state) => state.addNote);
   useEffect(() => {
     dispatch(getNotes());
@@ -32,7 +33,7 @@ const All = () => {
       <center>
         <Loader
           style={{ marginTop: "40vh" }}
-          type="Bars"
+          type="Circles"
           color="#3d3a3ade"
           height={100}
           width={100}
@@ -45,23 +46,33 @@ const All = () => {
       className={classes.root}
       style={{
         Width: "1100px",
-        marginTop: "50px",
+        marginTop: "40px",
         marginLeft: "20px",
         marginRight: "20px",
       }}
     >
-      {error && <h2>{error}</h2>}
+      <h1>All Notes</h1>
+      <br />
       <Grid container spacing={3}>
         {notes.map((el, ind) => {
           return (
-            <Grid item xs={12} sm={3}>
-              <Paper className={classes.paper}>
-                <b>{el.title}</b>
-              </Paper>
+            <Grid item xs={12} sm={3} key={ind}>
+              <Link to={`/note/${el._id}`} style={{ textDecoration: "none" }}>
+                <Paper className={classes.paper}>
+                  <h3>
+                    <b>{el.title}</b>
+                  </h3>
+                  <br />
+                  <br />
+                  <b>Date: </b>
+                  <span>{el.date}</span>
+                </Paper>
+              </Link>
             </Grid>
           );
         })}
       </Grid>
+      
     </div>
   );
 };
