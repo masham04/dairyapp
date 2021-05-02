@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/userActions";
-import Snack from "../components/Snack";
+import LoginSnack from "../components/LoginSnack";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ history, location }) => {
+const Login = ({ history }) => {
   const classes = useStyles();
   const [username, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -86,7 +86,7 @@ const Login = ({ history, location }) => {
           <span>
             <h2>Diary App</h2>
           </span>
-          {error && <Snack msg={error} />}
+          {error && <LoginSnack msg={error} />}
           <Typography component="h3" variant="h6">
             Sign in to your account
           </Typography>

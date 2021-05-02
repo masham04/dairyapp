@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Snack from "../components/Snack";
+import RegisterSnack from "../components/RegisterSnack";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -92,7 +92,7 @@ const Signup = ({ history }) => {
           <span>
             <h1>Diary App</h1>
           </span>
-          {error && <Snack msg={error} />}
+          {error && <RegisterSnack msg={error} />}
           <Typography component="h1" variant="h5">
             Sign Up to create account
           </Typography>

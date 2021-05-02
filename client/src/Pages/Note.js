@@ -5,9 +5,7 @@ import { getNote } from "../actions/notesActions";
 import { Header } from "../components/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
@@ -15,11 +13,7 @@ import Loader from "react-loader-spinner";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 1000,
-    textAlign: "center",
-  },
-  media: {
-    height: "a",
+    maxWidth: "700px",
   },
 });
 
@@ -32,6 +26,9 @@ const Note = ({ match }) => {
   useEffect(() => {
     dispatch(getNote(match.params.id));
   }, [dispatch, match]);
+  const handleDelete = () => {
+    alert("Confirm Delete!");
+  };
   if (loading)
     return (
       <center>
@@ -63,22 +60,22 @@ const Note = ({ match }) => {
       <Card
         className={classes.root}
         style={{
+          height: "auto",
           marginLeft: "auto",
           marginRight: "auto",
           marginTop: "12vh",
         }}
       >
-        <CardActionArea>
-          <CardContent style={{ height: "50vh" }}>
-            <h2>{error && <h2>{error}</h2>}</h2>
-            <h1>{note.title}</h1>
-            <br />
-            <br />
-            <h3>{note.content}</h3>
-          </CardContent>
-        </CardActionArea>
+        <div style={{ maxWidth: "500px", padding: "30px" }}>
+          <h2>{error && <h2>{error}</h2>}</h2>
+          <h1>{note.title}</h1>
+          <br />
+          <br />
+          <h3>{note.content}</h3>
+        </div>
+
         <CardActions>
-          <Button size="medium" style={{ width: "50%" }}>
+          <Button size="medium" style={{ width: "50%" }} onClick={handleDelete}>
             <DeleteIcon /> Delete
           </Button>
           <Button size="medium" style={{ width: "50%" }}>

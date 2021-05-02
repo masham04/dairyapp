@@ -19,11 +19,9 @@ const Notes = () => {
   const { error, userInfo } = userLogin;
 
   const [open, setOpen] = useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -71,15 +69,19 @@ const Notes = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 fullWidth
+                required
               />
               <TextField
                 margin="dense"
                 id="content"
+                multiline
+                rows={4}
                 label="Description"
                 type="text"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 fullWidth
+                required
               />
             </DialogContent>
             <DialogActions>
