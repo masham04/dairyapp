@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getNote } from "../actions/notesActions";
+import { deleteNote, getNote } from "../actions/notesActions";
 import { Header } from "../components/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -23,12 +23,18 @@ const Note = ({ match }) => {
   const noteDetail = useSelector((state) => state.noteDetail);
   const { error, loading, note } = noteDetail;
 
+  const handleDelete = async () => {
+    alert("Confirm Delete!");
+    dispatch(deleteNote(match.params.id));
+    window.location.replace('/all-notes')
+  };
+
+
   useEffect(() => {
     dispatch(getNote(match.params.id));
   }, [dispatch, match]);
-  const handleDelete = () => {
-    alert("Confirm Delete!");
-  };
+
+
   if (loading)
     return (
       <center>

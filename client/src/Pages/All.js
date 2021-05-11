@@ -23,7 +23,6 @@ const All = () => {
   const dispatch = useDispatch();
   const noteslist = useSelector((state) => state.noteslist);
   const { loading, notes } = noteslist;
-  console.log(notes);
   const added = useSelector((state) => state.addNote);
   useEffect(() => {
     dispatch(getNotes());
@@ -72,7 +71,7 @@ const All = () => {
           );
         })}
       </Grid>
-      
+
     </div>
   );
 };

@@ -6,12 +6,14 @@ import {
   getAllReducer,
   getReducer,
   addNoteReducer,
+  deleteNoteReducer
 } from "./reducers/notesReducer";
 
 const reducer = combineReducers({
   noteslist: getAllReducer,
   noteDetail: getReducer,
   addNote: addNoteReducer,
+  deleteNote: deleteNoteReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
 });

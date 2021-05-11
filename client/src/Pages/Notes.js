@@ -25,7 +25,8 @@ const Notes = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     dispatch(addNote(title, content));
     setOpen(false);
   };
