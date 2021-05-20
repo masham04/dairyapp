@@ -6,7 +6,8 @@ import {
   getAllReducer,
   getReducer,
   addNoteReducer,
-  deleteNoteReducer
+  deleteNoteReducer,
+  editNoteReducer
 } from "./reducers/notesReducer";
 
 const reducer = combineReducers({
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   noteDetail: getReducer,
   addNote: addNoteReducer,
   deleteNote: deleteNoteReducer,
+  editNote: editNoteReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
 });

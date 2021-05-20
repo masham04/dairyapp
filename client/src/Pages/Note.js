@@ -26,12 +26,11 @@ const Note = ({ match }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+
   const noteDetail = useSelector((state) => state.noteDetail);
   const { error, loading, note } = noteDetail;
 
-  useEffect(() => {
-    dispatch(getNote(match.params.id));
-  }, [dispatch, match]);
+
 
   const [open, setOpen] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -50,8 +49,8 @@ const Note = ({ match }) => {
   };
 
 
-  const [title, setTitle] = useState(`${note.title}`);
-  const [content, setContent] = useState(`${note.content}`);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const handleDelete = async () => {
     dispatch(deleteNote(match.params.id));
@@ -59,13 +58,16 @@ const Note = ({ match }) => {
     window.location.replace('/all-notes')
 
   };
-  const handleSubmit = async () => {
-    // dispatch(updateNote(match.params.id));
-    console.log(title, content)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(updateNote(match.params.id, title, content));
     setUpdate(false)
-
+    dispatch(getNote(match.params.id));
   };
 
+  useEffect(() => {
+    dispatch(getNote(match.params.id));
+  }, [dispatch, match]);
 
   if (loading)
     return (
@@ -144,7 +146,7 @@ const Note = ({ match }) => {
         onClose={updateClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add Note</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit Note</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -177,7 +179,7 @@ const Note = ({ match }) => {
             Cancel
               </Button>
           <Button onClick={handleSubmit} color="primary">
-            Add
+            Update
               </Button>
         </DialogActions>
       </Dialog>
