@@ -63,6 +63,7 @@ const Notes = () => {
             <DialogContent>
               <TextField
                 autoFocus
+                variant="outlined"
                 margin="dense"
                 id="title"
                 label="Title"
@@ -74,6 +75,7 @@ const Notes = () => {
               />
               <TextField
                 margin="dense"
+                variant="outlined"
                 id="content"
                 multiline
                 rows={4}

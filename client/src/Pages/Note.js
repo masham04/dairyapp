@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteNote, getNote } from "../actions/notesActions";
@@ -10,6 +10,9 @@ import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Loader from "react-loader-spinner";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles({
   root: {
@@ -18,22 +21,28 @@ const useStyles = makeStyles({
 });
 
 const Note = ({ match }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const noteDetail = useSelector((state) => state.noteDetail);
   const { error, loading, note } = noteDetail;
 
   const handleDelete = async () => {
-    alert("Confirm Delete!");
     dispatch(deleteNote(match.params.id));
     window.location.replace('/all-notes')
   };
 
-
   useEffect(() => {
     dispatch(getNote(match.params.id));
   }, [dispatch, match]);
-
 
   if (loading)
     return (
@@ -81,7 +90,7 @@ const Note = ({ match }) => {
         </div>
 
         <CardActions>
-          <Button size="medium" style={{ width: "50%" }} onClick={handleDelete}>
+          <Button size="medium" style={{ width: "50%" }} onClick={handleClickOpen}>
             <DeleteIcon /> Delete
           </Button>
           <Button size="medium" style={{ width: "50%" }}>
@@ -89,6 +98,23 @@ const Note = ({ match }) => {
           </Button>
         </CardActions>
       </Card>
+      {/* Dialogue Box */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Are you sure to delete this note?"}</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Disagree
+          </Button>
+          <Button onClick={handleDelete} color="primary" autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
