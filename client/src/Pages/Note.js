@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteNote, getNote } from "../actions/notesActions";
+import { deleteNote, getNote, updateNote } from "../actions/notesActions";
 import { Header } from "../components/Header";
 import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
@@ -11,6 +12,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Loader from "react-loader-spinner";
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
@@ -21,7 +23,18 @@ const useStyles = makeStyles({
 });
 
 const Note = ({ match }) => {
+  const classes = useStyles();
+
+  const dispatch = useDispatch();
+  const noteDetail = useSelector((state) => state.noteDetail);
+  const { error, loading, note } = noteDetail;
+
+  useEffect(() => {
+    dispatch(getNote(match.params.id));
+  }, [dispatch, match]);
+
   const [open, setOpen] = useState(false);
+  const [update, setUpdate] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -29,20 +42,30 @@ const Note = ({ match }) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const updateClose = () => {
+    setUpdate(false);
+  };
+  const updateOpen = () => {
+    setUpdate(true);
+  };
 
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const noteDetail = useSelector((state) => state.noteDetail);
-  const { error, loading, note } = noteDetail;
+
+  const [title, setTitle] = useState(`${note.title}`);
+  const [content, setContent] = useState(`${note.content}`);
 
   const handleDelete = async () => {
     dispatch(deleteNote(match.params.id));
+    setOpen(false)
     window.location.replace('/all-notes')
+
+  };
+  const handleSubmit = async () => {
+    // dispatch(updateNote(match.params.id));
+    console.log(title, content)
+    setUpdate(false)
+
   };
 
-  useEffect(() => {
-    dispatch(getNote(match.params.id));
-  }, [dispatch, match]);
 
   if (loading)
     return (
@@ -93,12 +116,12 @@ const Note = ({ match }) => {
           <Button size="medium" style={{ width: "50%" }} onClick={handleClickOpen}>
             <DeleteIcon /> Delete
           </Button>
-          <Button size="medium" style={{ width: "50%" }}>
+          <Button size="medium" style={{ width: "50%" }} onClick={updateOpen}>
             <EditIcon /> Edit
           </Button>
         </CardActions>
       </Card>
-      {/* Dialogue Box */}
+      {/* Delete Dialogue Box */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -113,6 +136,49 @@ const Note = ({ match }) => {
           <Button onClick={handleDelete} color="primary" autoFocus>
             Agree
           </Button>
+        </DialogActions>
+      </Dialog>
+      {/* update Dialogue Box */}
+      <Dialog
+        open={update}
+        onClose={updateClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Add Note</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            variant="outlined"
+            margin="dense"
+            id="title"
+            label="Title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            fullWidth
+            required
+          />
+          <TextField
+            margin="dense"
+            variant="outlined"
+            id="content"
+            multiline
+            rows={4}
+            label="Description"
+            type="text"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            fullWidth
+            required
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={updateClose} color="primary">
+            Cancel
+              </Button>
+          <Button onClick={handleSubmit} color="primary">
+            Add
+              </Button>
         </DialogActions>
       </Dialog>
     </div>
