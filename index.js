@@ -11,7 +11,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-const PORT = 8000;
+const PORT = 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -22,12 +22,6 @@ app.get("/", (req, res) => {
 auth(app);
 notes(app);
 
-
-app.use(express.static('client/build'))
-
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-})
 
 
 app.listen(PORT, () => {
